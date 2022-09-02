@@ -13,7 +13,7 @@ const displayAllNewsCategories = async() => {
 
         const li = document.createElement('li')
             li.innerHTML =`
-            <a class="text-decoration-none px-4" >${categorie.category_name}</a>
+            <a class="text-decoration-none px-4 text-black-50" type="button" >${categorie.category_name}</a>
             `
             menu.appendChild(li);
 
