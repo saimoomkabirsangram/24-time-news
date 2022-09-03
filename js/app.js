@@ -1,8 +1,12 @@
 // category api 
 const newsCategoriesApi = async() =>{
-    const res = await fetch('https://openapi.programming-hero.com/api/news/categories')
-    const data = await res.json()
-    return data
+    try{
+      const res = await fetch('https://openapi.programming-hero.com/api/news/categories')
+      const data = await res.json()
+      return data
+    }catch(error){
+      console.log(error);
+    }
 }
 
 const displayAllNewsCategories = async() => {
@@ -24,9 +28,13 @@ const displayAllNewsCategories = async() => {
 
 const LoadAllNewsDetaild = async(idCategory) =>{
   const url = `https://openapi.programming-hero.com/api/news/category/${idCategory}`
-  fetch(url)
+  try{
+    fetch(url)
     .then(res => res.json())
-    .then(data => displayCatDetails(data.data))   
+    .then(data => displayCatDetails(data.data))
+  }catch(error){
+    console.log(error);
+  }
 }
 
 const displayCatDetails = catDetails =>{
@@ -45,15 +53,19 @@ const displayCatDetails = catDetails =>{
       <div class="card mb-3 container" style="max-width: 1200px;">
       <div class="row g-0">
         <div class="col-md-4">
-          <img src="${catDetails.image_url}" class="img-fluid rounded-start" alt="...">
+          <img src="${catDetails.image_url ? catDetails.image_url: 'Not Found'}" class="img-fluid rounded-start" alt="...">
         </div>
 
         <div class="col-md-8">
           <div class="card-body">
-            <h5 class="card-title">${catDetails.title}</h5>
-            <p class="card-text">${catDetails.details.slice(0, 300)}...</p>
-            <img src="${catDetails.author.img}" class="thumbnail-img" alt="...">
-            <span>${catDetails.author.name}</span>
+            <h5 class="card-title">${catDetails.title ? catDetails.title: 'Not Found'}</h5>
+            <p class="card-text">${catDetails.details.slice(0, 300) ? catDetails.details.slice(0, 300): 'Not Found'}...</p>
+            <img src="${catDetails.author.img ? catDetails.author.img: 'Not Found'}" class="thumbnail-img" alt="...">
+            <span>${catDetails.author.name ? catDetails.author.name: 'Not Found'}</span>
+            <span class="mr-5 ps-5">View: ${catDetails.total_view ? catDetails.total_view: 'Not Found'}</span>
+            <button type="button" class="btn-primary btn ms-5 ms-5" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
+            See More
+          </button>
           </div>
         </div>
       </div>
