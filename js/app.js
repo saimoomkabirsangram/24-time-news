@@ -14,29 +14,62 @@ const displayAllNewsCategories = async() => {
 
         const li = document.createElement('li')
             li.innerHTML =`
-            <a onclick = "common()" class="text-decoration-none px-4 text-black-50" type="button" >${categorie.category_name}</a>
+            <a onclick = "LoadAllNewsDetaild('${categorie.category_id}')" class="text-decoration-none px-4 text-black-50" type="button" >${categorie.category_name}</a>
             `
             menu.appendChild(li);
 
     }
+
 }
 
-//  all news api 
-const AllNewsApi = async() =>{
-    const res = await fetch('https://openapi.programming-hero.com/api/news/category/01')
-    const data = res.json();
-    return data
+const LoadAllNewsDetaild = async(idCategory) =>{
+  const url = `https://openapi.programming-hero.com/api/news/category/${idCategory}`
+  fetch(url)
+    .then(res => res.json())
+    .then(data => displayCatDetails(data.data))   
 }
 
-const common = async() =>{
-    const newsDetails = await AllNewsApi()
-    console.log(newsDetails.data[0].category_id);
-    // const details = newsDetails.data
+const displayCatDetails = catDetails =>{
+  // console.log(cat);
+  const catCountElemnet = document.getElementById('category-found');
+  catCountElemnet.innerText = (catDetails.length);
+
+
+  const categoryDetails = document.getElementById('category_container');
+  const div = document.createElement('div')
+  categoryDetails.innerHTML=`` ;
+  catDetails.forEach(catDetails => {
+      const catDiv = document.createElement('div');
+      catDiv.classList.add('col');
+      catDiv.innerHTML=`
+      <div class="card mb-3 container" style="max-width: 1200px;">
+      <div class="row g-0">
+        <div class="col-md-4">
+          <img src="${catDetails.image_url}" class="img-fluid rounded-start" alt="...">
+        </div>
+
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title">${catDetails.title}</h5>
+            <p class="card-text">${catDetails.details.slice(0, 300)}...</p>
+            <img src="${catDetails.author.img}" class="thumbnail-img" alt="...">
+            <span>${catDetails.author.name}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+      `
+      categoryDetails.appendChild(catDiv);
+  });  
+ 
+
+
 }
 
-common()
-AllNewsApi()
 
+
+
+LoadAllNewsDetaild()
 newsCategoriesApi()
 displayAllNewsCategories()
 

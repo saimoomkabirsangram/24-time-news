@@ -5,3 +5,7 @@
     font-family: 'Poppins', sans-serif;
     font-family: 'Roboto', sans-serif;
 }
+.thumbnail-img{
+    border-radius: 50%;
+    height: 70px;
+}
