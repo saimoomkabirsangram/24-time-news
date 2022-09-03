@@ -44,24 +44,25 @@ const LoadAllNewsDetaild = async(idCategory) =>{
 
 const displayCatDetails = catDetails => {
   // console.log(cat);
+  catDetails.sort(function(a,b){
+    return b.total_view - a.total_view
+  });
 
   // data found 
   const catCountElemnet = document.getElementById('category-found');
-    catCountElemnet.innerText = (catDetails.length);
+    // catCountElemnet.innerText = (catDetails.length);
 
-  if (catDetails.length === 0) {
-    catCountElemnet.innerText = ('Sorry! No data found')
+    if (catDetails.length === 0) {
+      catCountElemnet.innerText = ('Sorry! No data found')
   }
-  else {
-    catCountElemnet.innerText = (catDetails.length + ' ' + 'items Found in this category');
+  else{
+  catCountElemnet.innerText = (catDetails.length + "  " + "Data found ");
+  
   }
-
-
-
 
 
   const categoryDetails = document.getElementById('category_container');
-  const div = document.createElement('div')
+  // const div = document.createElement('div')
 
   // spinner add 
   spinner.classList.add('d-none')
@@ -81,7 +82,7 @@ const displayCatDetails = catDetails => {
         <div class="col-md-8">
           <div class="card-body">
             <h5 class="card-title">${catDetails.title ? catDetails.title: 'Not Found'}</h5>
-            <p class="card-text">${catDetails.details.slice(0, 300) ? catDetails.details.slice(0, 300): 'Not Found'}...</p>
+            <p class="card-text">${catDetails.details.slice(0, 300)  ? catDetails.details.slice(0, 300): 'Not Found'}...</p>
             <img src="${catDetails.author.img ? catDetails.author.img: 'Not Found'}" class="thumbnail-img" alt="...">
             <span>${catDetails.author.name ? catDetails.author.name: 'Not Found'}</span>
             <span class="mr-5 ps-5">View: ${catDetails.total_view ? catDetails.total_view: 'Not Found'}</span>
@@ -101,9 +102,9 @@ const displayCatDetails = catDetails => {
 }
 
 
-LoadAllNewsDetaild()
-newsCategoriesApi()
+
 displayAllNewsCategories()
+newsCategoriesApi()
 
 
 
