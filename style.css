@@ -5,6 +5,9 @@
     /* font-family: 'Poppins', sans-serif; */
     /* font-family: 'Roboto', sans-serif; */
 }
+body{
+    background-color: rgba(241, 224, 224, 0.425);
+}
 .thumbnail-img{
     border-radius: 50%;
     height: 70px;

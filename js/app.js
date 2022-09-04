@@ -9,6 +9,8 @@ const newsCategoriesApi = async() =>{
     }
 }
 
+
+
 const displayAllNewsCategories = async() => {
     const newsCategories = await newsCategoriesApi()
     const newsCategorie= newsCategories.data.news_category;
@@ -84,7 +86,7 @@ const displayCatDetails = catDetails => {
           <img src="${catDetails.image_url ? catDetails.image_url: 'Not Found!'}" class="img-fluid rounded-start" alt="...">
         </div>
 
-        <div class="col-md-8 col-sm-12">
+        <div class="col-md-8">
           <div class="card-body">
             <h5 class="card-title">${catDetails.title ? catDetails.title: 'Not Found!'}</h5>
             <p class="card-text">${catDetails.details.slice(0, 300)  ? catDetails.details.slice(0, 300): 'Not Found!'}...</p>
@@ -105,12 +107,8 @@ const displayCatDetails = catDetails => {
   });  
 }
 
-
-
-
-
 // blog post show 
- document.getElementById('blog-post').addEventListener('click', function(){
+document.getElementById('blog-post').addEventListener('click', function(){
 
     const blog = document.getElementById('question-show')
     blog.innerText= ``; 
@@ -160,8 +158,6 @@ const displayCatDetails = catDetails => {
 
 
 
-
-
   // modal function 
   const modalDetails = catDetails_Id =>{
     const url = `https://openapi.programming-hero.com/api/news/${catDetails_Id}`
@@ -183,33 +179,15 @@ const displayCatDetails = catDetails => {
     div.innerHTML = `
       <p>Author Name: ${modalInfo.author.name ? modalInfo.author.name: 'No Data Found!'} </p>
       <p>Published Date: ${modalInfo.author.published_date ? modalInfo.author.published_date: 'No Data Found'} </p>
-      <p>${modalInfo.details.slice(0, 200) ? modalInfo.details.slice(0, 200): 'No Data Found'}...</p>
+      <p>${modalInfo.details.slice(0, 200) ? modalInfo.details.slice(0, 200): 'No Data'}...</p>
       <img src="${modalInfo.image_url}" class="img-fluid rounded-start" alt="...">
     `;
     modal.appendChild(div)
   }
 
-  modalDetails()
+modalDetails()
 
 
-  displayAllNewsCategories()
-  newsCategoriesApi()
-
-
- 
-
-
-
-
-
-
-
-
-
- 
-
-
-
-
-
-
+displayAllNewsCategories()
+newsCategoriesApi()
+  
